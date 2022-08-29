@@ -16,7 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-import React from 'react';
+import React, { useReducer, Reducer } from 'react';
 import Header from './Header';
 import DatasetPanel from './DatasetPanel';
 import LeftPanel from './LeftPanel';
@@ -60,19 +60,25 @@ export function datasetReducer(
   }
 }
 
-export default function AddDataset() {
+export default function AddDataset(url: string) {
   // this is commented out for now, but can be commented in as the component
   // is built up. Uncomment the useReducer in imports too
-  // const [dataset, setDataset] = useReducer<
-  //   Reducer<Partial<DatasetObject> | null, DSReducerActionType>
-  // >(datasetReducer, null);
+  const [dataset, setDataset] = useReducer<
+    Reducer<Partial<DatasetObject> | null, DSReducerActionType>
+  >(datasetReducer, null);
+  const prevUrl =
+    '/tablemodelview/list/?pageIndex=0&sortColumn=changed_on_delta_humanized&sortOrder=desc';
+
+  const FooterComponent = () => (
+    <Footer url={prevUrl} datasetObject={dataset} />
+  );
 
   return (
     <DatasetLayout
       header={Header()}
       leftPanel={LeftPanel()}
       datasetPanel={DatasetPanel()}
-      footer={Footer()}
+      footer={FooterComponent()}
     />
   );
 }
