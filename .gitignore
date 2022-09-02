@@ -61,7 +61,7 @@ rat-results.txt
 superset/app/
 
 # Node.js, webpack artifacts, storybook
-*.entry.js
+# *.entry.js
 *.js.map
 node_modules
 npm-debug.log*
